@@ -1,0 +1,689 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MY PROJECT — Моя ідея програмного проєкту</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+  --bg:#080910;
+  --panel:#111321;
+  --purple:#9b6cff;
+  --blue:#547cff;
+  --text:#f5f5ff;
+  --muted:#999bb3;
+}
+
+* {margin:0;padding:0;box-sizing:border-box}
+
+html {scroll-behavior:smooth}
+
+body {
+  font-family:Inter,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  overflow-x:hidden;
+}
+
+body::before {
+  content:"";
+  position:fixed;
+  width:600px;height:600px;
+  background:#7141ff;
+  filter:blur(180px);
+  opacity:.12;
+  top:-300px;left:30%;
+  pointer-events:none;
+  z-index:-1;
+}
+
+header {
+  height:80px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:0 8%;
+  border-bottom:1px solid #ffffff12;
+  position:sticky;
+  top:0;
+  background:#080910df;
+  backdrop-filter:blur(20px);
+  z-index:100;
+}
+
+.logo {
+  font-size:22px;
+  font-weight:900;
+  letter-spacing:-1px;
+}
+
+.logo span {color:var(--purple)}
+
+nav {display:flex;gap:30px}
+
+nav button {
+  color:#aaa;
+  background:none;
+  border:none;
+  cursor:pointer;
+  font:inherit;
+  font-size:13px;
+  transition:.3s;
+}
+
+nav button:hover,nav button.active {color:white}
+
+.page {
+  display:none;
+  min-height:calc(100vh - 80px);
+  animation:appear .5s ease;
+}
+
+.page.active {display:block}
+
+@keyframes appear {
+  from {opacity:0;transform:translateY(15px)}
+  to {opacity:1;transform:translateY(0)}
+}
+
+.hero {
+  min-height:680px;
+  padding:120px 8%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:50px;
+}
+
+.hero-content {max-width:650px}
+
+.tag {
+  display:inline-block;
+  padding:9px 16px;
+  border:1px solid #9b6cff55;
+  background:#9b6cff15;
+  border-radius:30px;
+  color:#c3a9ff;
+  font-size:12px;
+  margin-bottom:28px;
+}
+
+h1 {
+  font-size:clamp(42px,6vw,76px);
+  line-height:1.08;
+  font-weight:900;
+  letter-spacing:-4px;
+}
+
+.gradient {
+  background:linear-gradient(90deg,#a77aff,#5d9aff);
+  -webkit-background-clip:text;
+  color:transparent;
+}
+
+.hero p {
+  color:var(--muted);
+  line-height:1.8;
+  margin-top:25px;
+  max-width:520px;
+  font-size:15px;
+}
+
+.buttons {display:flex;gap:15px;margin-top:35px;flex-wrap:wrap}
+
+.btn {
+  padding:15px 24px;
+  border-radius:12px;
+  border:1px solid #ffffff20;
+  background:#ffffff08;
+  color:white;
+  cursor:pointer;
+  font-weight:700;
+  transition:.3s;
+}
+
+.btn.primary {
+  background:linear-gradient(110deg,#895bff,#527dff);
+  border:none;
+  box-shadow:0 8px 35px #7956ff40;
+}
+
+.btn:hover {transform:translateY(-4px);filter:brightness(1.2)}
+
+.hero-visual {
+  width:340px;height:340px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:radial-gradient(circle,#7044ff50,#111321 65%);
+  border:1px solid #ffffff18;
+  position:relative;
+  flex-shrink:0;
+  animation:float 5s ease-in-out infinite;
+}
+
+.hero-visual .big-icon {font-size:115px}
+
+.orbit {
+  position:absolute;
+  width:400px;height:150px;
+  border:1px solid #9b6cff55;
+  border-radius:50%;
+  transform:rotate(-35deg);
+}
+
+.orbit.two {
+  transform:rotate(55deg);
+  border-color:#5685ff55;
+}
+
+@keyframes float {
+  50% {transform:translateY(-18px)}
+}
+
+.section {
+  padding:75px 8%;
+}
+
+.section-title {
+  font-size:36px;
+  font-weight:900;
+  letter-spacing:-1.5px;
+  margin-bottom:12px;
+}
+
+.section-desc {color:var(--muted);line-height:1.7;margin-bottom:40px}
+
+.cards {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:22px;
+}
+
+.card {
+  background:linear-gradient(145deg,#151827,#0d0f19);
+  border:1px solid #ffffff12;
+  border-radius:22px;
+  padding:30px;
+  transition:.35s;
+  position:relative;
+  overflow:hidden;
+}
+
+.card:hover {
+  transform:translateY(-9px);
+  border-color:#9b6cff80;
+  box-shadow:0 15px 50px #0008;
+}
+
+.card-icon {
+  font-size:40px;
+  margin-bottom:22px;
+  display:block;
+}
+
+.card h3 {font-size:20px;margin-bottom:13px}
+
+.card p {
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.8;
+  margin-bottom:20px;
+}
+
+.card small {color:#b69bff;font-weight:700}
+
+.details {
+  padding:12px 0;
+  border-bottom:1px solid #ffffff12;
+  color:#bbb;
+  font-size:13px;
+  line-height:1.7;
+}
+
+.details b {color:white}
+
+.card button {
+  margin-top:20px;
+  width:100%;
+}
+
+.feature-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:25px;
+}
+
+.feature {
+  padding:25px;
+  background:#121522;
+  border:1px solid #ffffff12;
+  border-radius:16px;
+}
+
+.feature h3 {margin-bottom:12px}
+.feature p {color:var(--muted);font-size:13px;line-height:1.8}
+
+.best-project {
+  background:linear-gradient(120deg,#18152d,#101a31);
+  border:1px solid #a17aff50;
+  border-radius:25px;
+  padding:40px;
+  margin-bottom:30px;
+}
+
+.best-project h2 {font-size:34px;margin:15px 0}
+
+.best-project p {color:#b5b6ca;line-height:1.8;max-width:750px}
+
+.badge {
+  background:#9b6cff22;
+  color:#c6aaff;
+  padding:8px 13px;
+  border-radius:20px;
+  font-size:11px;
+  font-weight:700;
+}
+
+.interface {
+  max-width:850px;
+  margin:35px auto;
+  background:#111522;
+  border:1px solid #ffffff20;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 20px 70px #0008;
+}
+
+.window-bar {
+  height:48px;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  padding:0 18px;
+  border-bottom:1px solid #ffffff15;
+}
+
+.dot {width:9px;height:9px;border-radius:50%;background:#ff6666}
+.dot:nth-child(2){background:#ffbd4c}
+.dot:nth-child(3){background:#55d98a}
+
+.app-content {padding:30px}
+
+.app-top {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:25px;
+  gap:10px;
+}
+
+.app-top h3 {font-size:20px}
+
+.progress {
+  background:#25283a;
+  height:9px;
+  border-radius:20px;
+  margin:15px 0;
+  overflow:hidden;
+}
+
+.progress div {
+  height:100%;
+  width:65%;
+  background:linear-gradient(90deg,#9b6cff,#5688ff);
+  border-radius:20px;
+  animation:progress 2s ease;
+}
+
+@keyframes progress {
+  from {width:0}
+  to {width:65%}
+}
+
+.task {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:#1b2030;
+  border:1px solid #ffffff0c;
+  border-radius:12px;
+  padding:15px;
+  margin-top:12px;
+  font-size:13px;
+  gap:10px;
+}
+
+.task button {
+  background:#7859d8;
+  color:white;
+  border:0;
+  padding:9px 13px;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+.task button:hover {background:#9b6cff}
+
+.stat-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-bottom:25px;
+}
+
+.stat {
+  background:#1b2030;
+  padding:18px;
+  border-radius:12px;
+  text-align:center;
+}
+
+.stat strong {font-size:24px;color:#b49aff;display:block}
+.stat small {color:#9296aa;font-size:11px}
+
+footer {
+  border-top:1px solid #ffffff12;
+  text-align:center;
+  padding:35px;
+  color:#777b91;
+  font-size:12px;
+}
+
+@media(max-width:850px) {
+  .hero {flex-direction:column;text-align:center;padding:85px 6%}
+  .hero-content {display:flex;flex-direction:column;align-items:center}
+  .hero-visual {width:250px;height:250px}
+  .hero-visual .big-icon {font-size:80px}
+  .orbit {width:300px}
+  .cards {grid-template-columns:1fr}
+  .feature-grid {grid-template-columns:1fr}
+  header {padding:0 5%}
+  nav {gap:12px}
+  nav button {font-size:11px}
+  h1 {letter-spacing:-2px}
+}
+
+@media(max-width:480px) {
+  header {height:auto;min-height:75px;flex-direction:column;gap:12px;padding:14px}
+  nav {gap:17px}
+  .hero {min-height:auto}
+  .stat-grid {grid-template-columns:1fr}
+  .section {padding:55px 6%}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">MY<span>PROJECT.</span></div>
+  <nav>
+    <button class="active" onclick="showPage('home',this)">Головна</button>
+    <button onclick="showPage('ideas',this)">Мої ідеї</button>
+    <button onclick="showPage('best',this)">Найкраща ідея</button>
+    <button onclick="showPage('demo',this)">Інтерфейс</button>
+  </nav>
+</header>
+
+<!-- ГОЛОВНА -->
+
+<main id="home" class="page active">
+  <section class="hero">
+    <div class="hero-content">
+      <span class="tag">✦ ШКІЛЬНИЙ ПРОГРАМНИЙ ПРОЄКТ</span>
+      <h1>Ідеї, які<br>можуть змінити<br><span class="gradient">майбутнє.</span></h1>
+      <p>
+        Кожна велика програма починається з маленької ідеї.
+        Тут представлені три цікаві програмні проєкти,
+        які можуть зробити повсякденне життя простішим.
+      </p>
+      <div class="buttons">
+        <button class="btn primary" onclick="showPage('ideas')">Переглянути ідеї →</button>
+        <button class="btn" onclick="showPage('best')">Мій вибір</button>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="orbit"></div>
+      <div class="orbit two"></div>
+      <div class="big-icon">💡</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Від ідеї до рішення</h2>
+    <p class="section-desc">Три напрямки, у яких програмування може бути корисним.</p>
+    <div class="feature-grid">
+      <div class="feature">
+        <h3>🚀 Інновації</h3>
+        <p>Створення сучасних цифрових інструментів для навчання, організації та розвитку.</p>
+      </div>
+      <div class="feature">
+        <h3>⚡ Практичність</h3>
+        <p>Кожна ідея спрямована на розв'язання реальної проблеми у повсякденному житті.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ІДЕЇ -->
+
+<main id="ideas" class="page">
+  <section class="section">
+    <span class="tag">МОЇ РОЗРОБКИ · 01—03</span>
+    <h1 class="section-title">Три ідеї.<br><span class="gradient">Три можливості.</span></h1>
+    <p class="section-desc">Програмні проєкти, які я хотів би створити.</p>
+
+    <div class="cards">
+
+      <div class="card">
+        <span class="card-icon">🤖</span>
+        <h3>RoboLearn</h3>
+        <p>Інтерактивна платформа для вивчення робототехніки, Arduino та програмування.</p>
+        <div class="details"><b>Проблема:</b> складно самостійно вивчати робототехніку без практики.</div>
+        <div class="details"><b>Для кого:</b> школярі та початківці.</div>
+        <div class="details"><b>Функції:</b> уроки, тести, симулятори схем, завдання та перевірка знань.</div>
+        <button class="btn" onclick="showPage('best')">Детальніше →</button>
+      </div>
+
+      <div class="card">
+        <span class="card-icon">📅</span>
+        <h3>TimeMaster</h3>
+        <p>Розумний планувальник часу для організації навчання та відпочинку.</p>
+        <div class="details"><b>Проблема:</b> люди часто забувають про завдання та неправильно планують час.</div>
+        <div class="details"><b>Для кого:</b> учні, студенти та зайняті люди.</div>
+        <div class="details"><b>Функції:</b> календар, нагадування, список справ, таймер Pomodoro та статистика.</div>
+        <button class="btn" onclick="showPage('ideas')">Переглянуто ✓</button>
+      </div>
+
+      <div class="card">
+        <span class="card-icon">💰</span>
+        <h3>SmartWallet</h3>
+        <p>Програма для контролю особистих фінансів та планування бюджету.</p>
+        <div class="details"><b>Проблема:</b> важко контролювати витрати та накопичувати гроші.</div>
+        <div class="details"><b>Для кого:</b> підлітки, студенти та дорослі.</div>
+        <div class="details"><b>Функції:</b> облік доходів, витрат, графіки, цілі накопичення та бюджет.</div>
+        <button class="btn" onclick="showPage('ideas')">Переглянуто ✓</button>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<!-- НАЙКРАЩА ІДЕЯ -->
+
+<main id="best" class="page">
+  <section class="section">
+    <span class="tag">✦ МІЙ НАЙКРАЩИЙ ВИБІР</span>
+
+    <div class="best-project">
+      <span class="badge">№ 01 · ОБРАНИЙ ПРОЄКТ</span>
+      <h2>🤖 Robo<span class="gradient">Learn</span></h2>
+      <p>
+        Мій проєкт — це програма, яка допомагає школярам
+        вивчати робототехніку та програмування, щоб вони могли
+        отримувати знання і практичні навички у цікавій та доступній формі.
+      </p>
+    </div>
+
+    <h2 class="section-title">Чому саме RoboLearn?</h2>
+    <p class="section-desc">Цей проєкт поєднує навчання, програмування та практику.</p>
+
+    <div class="feature-grid">
+      <div class="feature">
+        <h3>🎯 Проблема</h3>
+        <p>Багатьом учням важко зрозуміти робототехніку лише з підручників. Їм потрібна можливість самостійно практикуватися.</p>
+      </div>
+      <div class="feature">
+        <h3>👨‍🎓 Кому корисний</h3>
+        <p>Школярам, студентам, початківцям у програмуванні та всім, хто цікавиться Arduino.</p>
+      </div>
+      <div class="feature">
+        <h3>💻 Навчальні матеріали</h3>
+        <p>Теоретичні уроки, готові приклади коду, пояснення електронних компонентів та тестування.</p>
+      </div>
+      <div class="feature">
+        <h3>⚙️ Практичні симулятори</h3>
+        <p>Можливість тренуватися зі світлодіодами, кнопками, датчиками та віртуальними Arduino-схемами.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:40px;text-align:center">
+      <h2 class="section-title">Як працюватиме програма?</h2>
+      <p class="section-desc">Від простого уроку до створення власного проєкту.</p>
+      <div class="feature-grid">
+        <div class="feature"><h3>01. Навчання</h3><p>Користувач обирає тему та читає пояснення.</p></div>
+        <div class="feature"><h3>02. Практика</h3><p>Виконує інтерактивні завдання та симуляції.</p></div>
+        <div class="feature"><h3>03. Перевірка</h3><p>Проходить тести та отримує результат.</p></div>
+        <div class="feature"><h3>04. Розвиток</h3><p>Відкриває нові рівні та складніші завдання.</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ДЕМОНСТРАЦІЯ ІНТЕРФЕЙСУ -->
+
+<main id="demo" class="page">
+  <section class="section">
+    <span class="tag">LIVE PREVIEW · ROBOLEARN</span>
+    <h1 class="section-title">Як виглядатиме<br><span class="gradient">моя програма?</span></h1>
+    <p class="section-desc">Приклад головного меню майбутньої навчальної платформи.</p>
+
+    <div class="interface">
+      <div class="window-bar">
+        <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+        <span style="margin-left:12px;color:#888;font-size:11px">RoboLearn — Dashboard</span>
+      </div>
+
+      <div class="app-content">
+        <div class="app-top">
+          <h3>👋 Привіт, винахіднику!</h3>
+          <span class="badge">LEVEL 05</span>
+        </div>
+
+        <p style="color:#999;font-size:13px">Продовжуй навчання та створюй щось неймовірне.</p>
+
+        <div class="stat-grid" style="margin-top:25px">
+          <div class="stat"><strong id="lessons">12</strong><small>Уроків пройдено</small></div>
+          <div class="stat"><strong id="points">850</strong><small>Зароблено XP</small></div>
+          <div class="stat"><strong>65%</strong><small>Прогрес курсу</small></div>
+        </div>
+
+        <h3 style="font-size:15px">Твій прогрес</h3>
+        <div class="progress"><div></div></div>
+
+        <h3 style="font-size:15px;margin-top:30px">📚 Навчальні завдання</h3>
+
+        <div class="task">
+          <span>💡 Створення світлодіода</span>
+          <button onclick="completeTask(this,20)">Виконати</button>
+        </div>
+        <div class="task">
+          <span>🔘 Робота з кнопками Arduino</span>
+          <button onclick="completeTask(this,30)">Виконати</button>
+        </div>
+        <div class="task">
+          <span>🌡️ Підключення датчиків</span>
+          <button onclick="completeTask(this,50)">Виконати</button>
+        </div>
+
+        <div style="margin-top:25px;padding:18px;background:#24203b;border-radius:12px">
+          <b style="font-size:14px">🏆 Твоя мета</b>
+          <p style="font-size:12px;color:#aaa;margin-top:8px">Вивчи 20 уроків і відкрий новий рівень!</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center">
+      <button class="btn primary" onclick="resetDemo()">↻ Скинути демонстрацію</button>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="logo">MY<span>PROJECT.</span></div>
+  <p style="margin-top:12px">Навчальний проєкт · Моя ідея програмного проєкту</p>
+  <p style="margin-top:8px">© 2026 · Створено з ідеєю та натхненням ✦</p>
+</footer>
+
+<script>
+function showPage(id,button) {
+  document.querySelectorAll('.page').forEach(page=>{
+    page.classList.remove('active');
+  });
+
+  document.getElementById(id).classList.add('active');
+
+  document.querySelectorAll('nav button').forEach(btn=>{
+    btn.classList.remove('active');
+  });
+
+  if(button) button.classList.add('active');
+
+  document.querySelectorAll('nav button').forEach(btn=>{
+    if(btn.getAttribute('onclick').includes("'"+id+"'")){
+      btn.classList.add('active');
+    }
+  });
+
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+let xp=850;
+let lessons=12;
+
+function completeTask(button,points) {
+  if(button.dataset.done==="true") return;
+
+  button.dataset.done="true";
+  button.innerText="✓ Готово";
+  button.style.background="#218c66";
+  xp+=points;
+  lessons++;
+
+  document.getElementById('points').innerText=xp;
+  document.getElementById('lessons').innerText=lessons;
+}
+
+function resetDemo() {
+  xp=850;
+  lessons=12;
+
+  document.getElementById('points').innerText=xp;
+  document.getElementById('lessons').innerText=lessons;
+
+  document.querySelectorAll('.task button').forEach(button=>{
+    button.dataset.done="false";
+    button.innerText="Виконати";
+    button.style.background="#7859d8";
+  });
+}
+</script>
+
+</body>
+</html>
